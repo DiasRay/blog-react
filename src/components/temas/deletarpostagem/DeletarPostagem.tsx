@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { AuthContext } from "../../../contexts/AuthContext"
 import { RotatingLines } from "react-loader-spinner"
 import { buscar, deletar } from "../../../services/Service"
+import { ToastAlerta } from "../../../utils/ToastAlerta"
 
 function DeletarPostagem() {
 
@@ -32,7 +33,7 @@ function DeletarPostagem() {
     }
     useEffect(() => {
         if (token === '') {
-            alert('Você precisa estar logado')
+            ToastAlerta('Você precisa estar logado', 'aviso')
             navigate('/')
         }
     }, [token])
@@ -53,13 +54,13 @@ function DeletarPostagem() {
                 }
             })
 
-            alert('Postagem deletada com sucesso!')
+            ToastAlerta('Postagem deletada com sucesso!', 'info')
 
         } catch (error: any) {
             if (error.toString().includes('403')) {
                 handleLogout()
             } else {
-                alert('Erro ao deletar a postagem.')
+                ToastAlerta('Erro ao deletar a postagem.', 'aviso')
             }
         }
 
